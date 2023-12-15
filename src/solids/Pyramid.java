@@ -1,2 +1,4 @@
-package solids;public class Pyramid {
+package solids;
+
+public class Pyramid {
 }
