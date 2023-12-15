@@ -27,3 +27,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+.idea
+c04_osipchyk_ivan.iml
