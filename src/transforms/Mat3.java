@@ -386,7 +386,7 @@ public class Mat3 {
 	/**
 	 * Returns String representation of this matrix with elements formated
 	 * according to the given format, see
-	 * {@link java.lang.String#format(String, Object...)}
+	 * {@link String#format(String, Object...)}
 	 * 
 	 * @param format
 	 *            String format applied to each element

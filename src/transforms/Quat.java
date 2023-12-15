@@ -570,7 +570,7 @@ public class Quat {
 	/**
 	 * Returns String representation of this quaternion with coordinate formated
 	 * according to the given format, see
-	 * {@link java.lang.String#format(String, Object...)}
+	 * {@link String#format(String, Object...)}
 	 * 
 	 * @param format
 	 *            String format applied to the coordinate

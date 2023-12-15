@@ -255,7 +255,7 @@ public class Vec2D {
 	/**
 	 * Returns String representation of this vector with coordinates formated
 	 * according to the given format, see
-	 * {@link java.lang.String#format(String, Object...)}
+	 * {@link String#format(String, Object...)}
 	 * 
 	 * @param format
 	 *            String format applied to each coordinate
