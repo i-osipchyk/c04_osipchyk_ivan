@@ -60,14 +60,15 @@ public class Canvas3D {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
 
-//                if(e.getKeyCode() == KeyEvent.VK_LEFT)
-//                    camera = camera.left(0.1);
-//                if(e.getKeyCode() == KeyEvent.VK_RIGHT)
-//                    camera = camera.right(0.1);
-//                if(e.getKeyCode() == KeyEvent.VK_UP)
-//                    camera = camera.forward(0.1);
-//                if(e.getKeyCode() == KeyEvent.VK_DOWN)
-//                    camera = camera.backward(0.1);
+                // Camera movements
+                if(e.getKeyCode() == KeyEvent.VK_A)
+                    camera = camera.left(0.1);
+                if(e.getKeyCode() == KeyEvent.VK_D)
+                    camera = camera.right(0.1);
+                if(e.getKeyCode() == KeyEvent.VK_W)
+                    camera = camera.forward(0.1);
+                if(e.getKeyCode() == KeyEvent.VK_S)
+                    camera = camera.backward(0.1);
 
 
                 // Change projection matrix
@@ -77,14 +78,14 @@ public class Canvas3D {
                 }
 
                 // Scale solids up and down
-                if(e.getKeyChar() == 'S') {
+                if((e.getKeyChar() == 'Q' || e.getKeyChar() == 'q') && !e.isShiftDown()) {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Scale(1.1, 1.1, 1.1)));
                     } else {
                         pyramid.setModel(cube.getModel().mul(new Mat4Scale(1.1, 1.1, 1.1)));
                     }
                 }
-                if(e.getKeyChar() == 's') {
+                if((e.getKeyChar() == 'Q' || e.getKeyChar() == 'q') && e.isShiftDown()) {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Scale(0.9, 0.9, 0.9)));
                     } else {
