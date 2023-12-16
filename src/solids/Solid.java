@@ -4,6 +4,7 @@ import transforms.Mat4;
 import transforms.Mat4Identity;
 import transforms.Point3D;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -11,6 +12,7 @@ public class Solid {
     protected ArrayList<Point3D> vb = new ArrayList<>();
     protected ArrayList<Integer> ib = new ArrayList<>();
     protected Mat4 model = new Mat4Identity();
+    protected Color color;
 
     public ArrayList<Point3D> getVb() {
         return vb;
@@ -30,5 +32,8 @@ public class Solid {
 
     public void setModel(Mat4 model) {
         this.model = model;
+    }
+    public Color getColor() {
+        return this.color;
     }
 }
