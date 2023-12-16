@@ -21,6 +21,7 @@ public class Canvas3D {
     private Camera camera;
     private Mat4 projection;
     private double translX = 0;
+    private boolean cubeMode = true;
     private boolean perspectiveProjection = true;
 
     public Canvas3D(int width, int height) {
@@ -71,6 +72,21 @@ public class Canvas3D {
                 if(e.getKeyChar() == 'p' || e.getKeyChar() == 'P') {
                     perspectiveProjection = !perspectiveProjection;
                     setProjectionMatrix();
+                }
+
+                if(e.getKeyChar() == 'S') {
+                    if (cubeMode) {
+                        cube.setModel(cube.getModel().mul(new Mat4Scale(1.1, 1.1, 1.1)));
+                    } else {
+                        pyramid.setModel(cube.getModel().mul(new Mat4Scale(1.1, 1.1, 1.1)));
+                    }
+                }
+                if(e.getKeyChar() == 's') {
+                    if (cubeMode) {
+                        cube.setModel(cube.getModel().mul(new Mat4Scale(0.9, 0.9, 0.9)));
+                    } else {
+                        pyramid.setModel(cube.getModel().mul(new Mat4Scale(0.9, 0.9, 0.9)));
+                    }
                 }
 
                 renderScene();
