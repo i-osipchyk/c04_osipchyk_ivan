@@ -20,7 +20,7 @@ public class Canvas3D {
     private Solid pyramid, cube, lineX, lineY, lineZ;
     private Camera camera;
     private Mat4 projection;
-    private double translX = 0;
+    private double transl = 0.1;
     private boolean cubeMode = true;
     private boolean perspectiveProjection = true;
 
@@ -60,14 +60,14 @@ public class Canvas3D {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
 
-                if(e.getKeyCode() == KeyEvent.VK_LEFT)
-                    camera = camera.left(0.1);
-                if(e.getKeyCode() == KeyEvent.VK_RIGHT)
-                    camera = camera.right(0.1);
-                if(e.getKeyCode() == KeyEvent.VK_UP)
-                    camera = camera.forward(0.1);
-                if(e.getKeyCode() == KeyEvent.VK_DOWN)
-                    camera = camera.backward(0.1);
+//                if(e.getKeyCode() == KeyEvent.VK_LEFT)
+//                    camera = camera.left(0.1);
+//                if(e.getKeyCode() == KeyEvent.VK_RIGHT)
+//                    camera = camera.right(0.1);
+//                if(e.getKeyCode() == KeyEvent.VK_UP)
+//                    camera = camera.forward(0.1);
+//                if(e.getKeyCode() == KeyEvent.VK_DOWN)
+//                    camera = camera.backward(0.1);
 
                 if(e.getKeyChar() == 'p' || e.getKeyChar() == 'P') {
                     perspectiveProjection = !perspectiveProjection;
@@ -86,6 +86,35 @@ public class Canvas3D {
                         cube.setModel(cube.getModel().mul(new Mat4Scale(0.9, 0.9, 0.9)));
                     } else {
                         pyramid.setModel(cube.getModel().mul(new Mat4Scale(0.9, 0.9, 0.9)));
+                    }
+                }
+
+                if(e.getKeyCode() == KeyEvent.VK_UP) {
+                    if (cubeMode) {
+                        cube.setModel(cube.getModel().mul(new Mat4Transl(transl, 0, 0)));
+                    } else {
+                        pyramid.setModel(cube.getModel().mul(new Mat4Transl(transl, 0, 0)));
+                    }
+                }
+                if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    if (cubeMode) {
+                        cube.setModel(cube.getModel().mul(new Mat4Transl(-transl, 0, 0)));
+                    } else {
+                        pyramid.setModel(cube.getModel().mul(new Mat4Transl(-transl, 0, 0)));
+                    }
+                }
+                if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    if (cubeMode) {
+                        cube.setModel(cube.getModel().mul(new Mat4Transl(0, transl, 0)));
+                    } else {
+                        pyramid.setModel(cube.getModel().mul(new Mat4Transl(0, transl, 0)));
+                    }
+                }
+                if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    if (cubeMode) {
+                        cube.setModel(cube.getModel().mul(new Mat4Transl(0, -transl, 0)));
+                    } else {
+                        pyramid.setModel(cube.getModel().mul(new Mat4Transl(0, -transl, 0)));
                     }
                 }
 
