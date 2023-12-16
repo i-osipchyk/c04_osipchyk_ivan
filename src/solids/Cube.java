@@ -8,13 +8,13 @@ public class Cube extends Solid {
     public Cube() {
 
         vb.add(new Point3D(0,0,0));
-        vb.add(new Point3D(1,0,0));
-        vb.add(new Point3D(1,1,0));
-        vb.add(new Point3D(0,1,0));
-        vb.add(new Point3D(0,0,1));
-        vb.add(new Point3D(1,0,1));
-        vb.add(new Point3D(1,1,1));
-        vb.add(new Point3D(0,1,1));
+        vb.add(new Point3D(0.5,0,0));
+        vb.add(new Point3D(0.5,0.5,0));
+        vb.add(new Point3D(0,0.5,0));
+        vb.add(new Point3D(0,0,0.5));
+        vb.add(new Point3D(0.5,0,0.5));
+        vb.add(new Point3D(0.5,0.5,0.5));
+        vb.add(new Point3D(0,0.5,0.5));
 
         addIndices(
                 0, 1,
