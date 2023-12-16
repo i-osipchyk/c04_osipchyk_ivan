@@ -117,6 +117,20 @@ public class Canvas3D {
                         pyramid.setModel(cube.getModel().mul(new Mat4Transl(0, -transl, 0)));
                     }
                 }
+                if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    if (cubeMode) {
+                        cube.setModel(cube.getModel().mul(new Mat4Transl(0, 0, transl)));
+                    } else {
+                        pyramid.setModel(cube.getModel().mul(new Mat4Transl(0, 0, transl)));
+                    }
+                }
+                if(e.getKeyCode() == KeyEvent.VK_CONTROL) {
+                    if (cubeMode) {
+                        cube.setModel(cube.getModel().mul(new Mat4Transl(0, 0, -transl)));
+                    } else {
+                        pyramid.setModel(cube.getModel().mul(new Mat4Transl(0, 0, -transl)));
+                    }
+                }
 
                 renderScene();
             }
