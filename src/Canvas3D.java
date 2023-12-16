@@ -3,6 +3,7 @@ import rasterize.LineRasterizerGraphics;
 import rasterize.RasterBufferedImage;
 import renderer.WiredRenderer;
 import solids.Cube;
+import solids.Line;
 import solids.Solid;
 import transforms.*;
 
@@ -15,11 +16,9 @@ public class Canvas3D {
     private RasterBufferedImage raster;
     private LineRasterizer lineRasterizer;
     private WiredRenderer wiredRenderer;
-    private Solid cube;
-
+    private Solid cube, lineX, lineY, lineZ;
     private Camera camera;
     private Mat4 projection;
-
     private double translX = 0;
 
     public Canvas3D(int width, int height) {
@@ -48,8 +47,6 @@ public class Canvas3D {
         frame.pack();
         frame.setVisible(true);
 
-        initScene();
-
         panel.requestFocus();
         panel.requestFocusInWindow();
 
@@ -69,6 +66,8 @@ public class Canvas3D {
                 renderScene();
             }
         });
+
+        initScene();
     }
 
     public void initScene() {
@@ -86,6 +85,9 @@ public class Canvas3D {
                 20.
         );
 
+        lineX = new Line(Color.RED, new Point3D(0, 0, 0), new Point3D(1, 0, 0));
+        lineY = new Line(Color.GREEN, new Point3D(0, 0, 0), new Point3D(0, 1, 0));
+        lineZ = new Line(Color.BLUE, new Point3D(0, 0, 0), new Point3D(0, 0, 1));
 
         cube = new Cube();
     }
@@ -95,7 +97,7 @@ public class Canvas3D {
 
         wiredRenderer.setView(camera.getViewMatrix());
         wiredRenderer.setProj(projection);
-        wiredRenderer.render(cube);
+        wiredRenderer.renderScene(cube, lineX, lineY, lineZ);
 
         panel.repaint();
     }
