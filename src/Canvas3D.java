@@ -82,14 +82,14 @@ public class Canvas3D {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Scale(1.1, 1.1, 1.1)));
                     } else {
-                        pyramid.setModel(cube.getModel().mul(new Mat4Scale(1.1, 1.1, 1.1)));
+                        pyramid.setModel(pyramid.getModel().mul(new Mat4Scale(1.1, 1.1, 1.1)));
                     }
                 }
                 if((e.getKeyChar() == 'Q' || e.getKeyChar() == 'q') && e.isShiftDown()) {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Scale(0.9, 0.9, 0.9)));
                     } else {
-                        pyramid.setModel(cube.getModel().mul(new Mat4Scale(0.9, 0.9, 0.9)));
+                        pyramid.setModel(pyramid.getModel().mul(new Mat4Scale(0.9, 0.9, 0.9)));
                     }
                 }
 
@@ -99,14 +99,14 @@ public class Canvas3D {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Transl(transl, 0, 0)));
                     } else {
-                        pyramid.setModel(cube.getModel().mul(new Mat4Transl(transl, 0, 0)));
+                        pyramid.setModel(pyramid.getModel().mul(new Mat4Transl(transl, 0, 0)));
                     }
                 }
                 if(e.getKeyCode() == KeyEvent.VK_DOWN) {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Transl(-transl, 0, 0)));
                     } else {
-                        pyramid.setModel(cube.getModel().mul(new Mat4Transl(-transl, 0, 0)));
+                        pyramid.setModel(pyramid.getModel().mul(new Mat4Transl(-transl, 0, 0)));
                     }
                 }
 
@@ -115,14 +115,14 @@ public class Canvas3D {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Transl(0, transl, 0)));
                     } else {
-                        pyramid.setModel(cube.getModel().mul(new Mat4Transl(0, transl, 0)));
+                        pyramid.setModel(pyramid.getModel().mul(new Mat4Transl(0, transl, 0)));
                     }
                 }
                 if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Transl(0, -transl, 0)));
                     } else {
-                        pyramid.setModel(cube.getModel().mul(new Mat4Transl(0, -transl, 0)));
+                        pyramid.setModel(pyramid.getModel().mul(new Mat4Transl(0, -transl, 0)));
                     }
                 }
 
@@ -131,14 +131,14 @@ public class Canvas3D {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Transl(0, 0, transl)));
                     } else {
-                        pyramid.setModel(cube.getModel().mul(new Mat4Transl(0, 0, transl)));
+                        pyramid.setModel(pyramid.getModel().mul(new Mat4Transl(0, 0, transl)));
                     }
                 }
                 if(e.getKeyCode() == KeyEvent.VK_CONTROL) {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Transl(0, 0, -transl)));
                     } else {
-                        pyramid.setModel(cube.getModel().mul(new Mat4Transl(0, 0, -transl)));
+                        pyramid.setModel(pyramid.getModel().mul(new Mat4Transl(0, 0, -transl)));
                     }
                 }
 
@@ -192,6 +192,10 @@ public class Canvas3D {
                             pyramid.setModel(cube.getModel().mul(new Mat4RotY(-Math.PI / 6)));
                         }
                     }
+                }
+
+                if(e.getKeyCode() == 'm' || e.getKeyCode() == 'M') {
+                    cubeMode = !cubeMode;
                 }
                 renderScene();
             }
