@@ -69,11 +69,14 @@ public class Canvas3D {
 //                if(e.getKeyCode() == KeyEvent.VK_DOWN)
 //                    camera = camera.backward(0.1);
 
+
+                // Change projection matrix
                 if(e.getKeyChar() == 'p' || e.getKeyChar() == 'P') {
                     perspectiveProjection = !perspectiveProjection;
                     setProjectionMatrix();
                 }
 
+                // Scale solids up and down
                 if(e.getKeyChar() == 'S') {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Scale(1.1, 1.1, 1.1)));
@@ -89,6 +92,8 @@ public class Canvas3D {
                     }
                 }
 
+                // Translate solids
+                // Translate on x-axis
                 if(e.getKeyCode() == KeyEvent.VK_UP) {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Transl(transl, 0, 0)));
@@ -103,6 +108,8 @@ public class Canvas3D {
                         pyramid.setModel(cube.getModel().mul(new Mat4Transl(-transl, 0, 0)));
                     }
                 }
+
+                // Translate on y-axis
                 if(e.getKeyCode() == KeyEvent.VK_LEFT) {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Transl(0, transl, 0)));
@@ -117,6 +124,8 @@ public class Canvas3D {
                         pyramid.setModel(cube.getModel().mul(new Mat4Transl(0, -transl, 0)));
                     }
                 }
+
+                // Translate on z-axis
                 if(e.getKeyCode() == KeyEvent.VK_SPACE) {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Transl(0, 0, transl)));
@@ -132,6 +141,57 @@ public class Canvas3D {
                     }
                 }
 
+                // Rotate solids
+                // Rotate on z-axis
+                if(e.getKeyCode() == 'z' || e.getKeyCode() == 'Z') {
+                    if (!e.isShiftDown()) {
+                        if (cubeMode) {
+                            cube.setModel(cube.getModel().mul(new Mat4RotZ(Math.PI / 6)));
+                        } else {
+                            pyramid.setModel(cube.getModel().mul(new Mat4RotZ(Math.PI / 6)));
+                        }
+                    } else {
+                        if (cubeMode) {
+                            cube.setModel(cube.getModel().mul(new Mat4RotZ(-Math.PI / 6)));
+                        } else {
+                            pyramid.setModel(cube.getModel().mul(new Mat4RotZ(-Math.PI / 6)));
+                        }
+                    }
+                }
+
+                // Rotate on x-axis
+                if(e.getKeyCode() == 'x' || e.getKeyCode() == 'X') {
+                    if (!e.isShiftDown()) {
+                        if (cubeMode) {
+                            cube.setModel(cube.getModel().mul(new Mat4RotX(Math.PI / 6)));
+                        } else {
+                            pyramid.setModel(cube.getModel().mul(new Mat4RotX(Math.PI / 6)));
+                        }
+                    } else {
+                        if (cubeMode) {
+                            cube.setModel(cube.getModel().mul(new Mat4RotX(-Math.PI / 6)));
+                        } else {
+                            pyramid.setModel(cube.getModel().mul(new Mat4RotX(-Math.PI / 6)));
+                        }
+                    }
+                }
+
+                // Rotate on y-axis
+                if(e.getKeyCode() == 'y' || e.getKeyCode() == 'Y') {
+                    if (!e.isShiftDown()) {
+                        if (cubeMode) {
+                            cube.setModel(cube.getModel().mul(new Mat4RotY(Math.PI / 6)));
+                        } else {
+                            pyramid.setModel(cube.getModel().mul(new Mat4RotY(Math.PI / 6)));
+                        }
+                    } else {
+                        if (cubeMode) {
+                            cube.setModel(cube.getModel().mul(new Mat4RotY(-Math.PI / 6)));
+                        } else {
+                            pyramid.setModel(cube.getModel().mul(new Mat4RotY(-Math.PI / 6)));
+                        }
+                    }
+                }
                 renderScene();
             }
         });
