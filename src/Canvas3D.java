@@ -20,6 +20,7 @@ public class Canvas3D {
     private Camera camera;
     private Mat4 projection;
     private double translX = 0;
+    private boolean perspectiveProjection = true;
 
     public Canvas3D(int width, int height) {
         JFrame frame = new JFrame();
@@ -56,6 +57,7 @@ public class Canvas3D {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
+
                 if(e.getKeyCode() == KeyEvent.VK_LEFT)
                     camera = camera.left(0.1);
                 if(e.getKeyCode() == KeyEvent.VK_RIGHT)
@@ -64,6 +66,11 @@ public class Canvas3D {
                     camera = camera.forward(0.1);
                 if(e.getKeyCode() == KeyEvent.VK_DOWN)
                     camera = camera.backward(0.1);
+
+                if(e.getKeyChar() == 'p' || e.getKeyChar() == 'P') {
+                    perspectiveProjection = !perspectiveProjection;
+                    setProjectionMatrix();
+                }
 
                 renderScene();
             }
@@ -78,12 +85,8 @@ public class Canvas3D {
                 1. ,
                 true
         );
-        projection = new Mat4PerspRH(
-                Math.PI / 4,
-                600 / 800.,
-                0.1,
-                20.
-        );
+
+        setProjectionMatrix();
 
         lineX = new Line(Color.RED, new Point3D(0, 0, 0), new Point3D(1, 0, 0));
         lineY = new Line(Color.GREEN, new Point3D(0, 0, 0), new Point3D(0, 1, 0));
@@ -97,7 +100,7 @@ public class Canvas3D {
 
         wiredRenderer.setView(camera.getViewMatrix());
         wiredRenderer.setProj(projection);
-        wiredRenderer.renderScene(lineX, lineY, lineZ, cube);
+        wiredRenderer.renderScene(lineX, lineY, lineZ);
 
         panel.repaint();
     }
@@ -113,6 +116,24 @@ public class Canvas3D {
 
     public void start() {
         renderScene();
+    }
+
+    public void setProjectionMatrix() {
+        if (perspectiveProjection) {
+            projection = new Mat4PerspRH(
+                    Math.PI / 4,
+                    600 / 800.,
+                    0.1,
+                    20.
+            );
+        } else {
+            projection = new Mat4OrthoRH(
+                    800,
+                    600,
+                    0.1,
+                    20
+            );
+        }
     }
 
     public static void main(String[] args) {
