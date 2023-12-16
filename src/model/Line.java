@@ -1,11 +1,13 @@
 package model;
 
+import java.awt.*;
+
 public class Line {
 
     private final int  x1, x2, y1, y2;
-    private final int color;
+    private final Color color;
 
-    public Line(int x1, int y1, int x2, int y2, int color) {
+    public Line(int x1, int y1, int x2, int y2, Color color) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
@@ -13,7 +15,7 @@ public class Line {
         this.color = color;
     }
 
-    public Line(Point p1, Point p2, int color) {
+    public Line(Point p1, Point p2, Color color) {
         this.x1 = p1.x;
         this.x2 = p2.x;
         this.y1 = p1.y;
@@ -37,7 +39,7 @@ public class Line {
         return y2;
     }
 
-    public int getColor() {
+    public Color getColor() {
         return color;
     }
 }
