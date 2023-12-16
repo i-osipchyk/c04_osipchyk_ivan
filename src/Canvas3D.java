@@ -47,6 +47,8 @@ public class Canvas3D {
         frame.pack();
         frame.setVisible(true);
 
+        initScene();
+
         panel.requestFocus();
         panel.requestFocusInWindow();
 
@@ -66,8 +68,6 @@ public class Canvas3D {
                 renderScene();
             }
         });
-
-        initScene();
     }
 
     public void initScene() {
@@ -97,7 +97,7 @@ public class Canvas3D {
 
         wiredRenderer.setView(camera.getViewMatrix());
         wiredRenderer.setProj(projection);
-        wiredRenderer.renderScene(cube, lineX, lineY, lineZ);
+        wiredRenderer.renderScene(lineX, lineY, lineZ, cube);
 
         panel.repaint();
     }
