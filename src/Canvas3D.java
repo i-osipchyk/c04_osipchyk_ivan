@@ -4,6 +4,7 @@ import rasterize.RasterBufferedImage;
 import renderer.WiredRenderer;
 import solids.Cube;
 import solids.Line;
+import solids.Pyramid;
 import solids.Solid;
 import transforms.*;
 
@@ -16,7 +17,7 @@ public class Canvas3D {
     private RasterBufferedImage raster;
     private LineRasterizer lineRasterizer;
     private WiredRenderer wiredRenderer;
-    private Solid cube, lineX, lineY, lineZ;
+    private Solid pyramid, cube, lineX, lineY, lineZ;
     private Camera camera;
     private Mat4 projection;
     private double translX = 0;
@@ -93,6 +94,7 @@ public class Canvas3D {
         lineZ = new Line(Color.BLUE, new Point3D(0, 0, 0), new Point3D(0, 0, 1));
 
         cube = new Cube();
+        pyramid = new Pyramid();
     }
 
     public void renderScene() {
@@ -100,7 +102,7 @@ public class Canvas3D {
 
         wiredRenderer.setView(camera.getViewMatrix());
         wiredRenderer.setProj(projection);
-        wiredRenderer.renderScene(lineX, lineY, lineZ);
+        wiredRenderer.renderScene(lineX, lineY, lineZ, cube, pyramid);
 
         panel.repaint();
     }
