@@ -21,6 +21,7 @@ public class Canvas3D {
     private Camera camera;
     private Mat4 projection;
     private double transl = 0.1;
+    private int x, y;
     private boolean cubeMode = true;
     private boolean perspectiveProjection = true;
 
@@ -69,6 +70,10 @@ public class Canvas3D {
                     camera = camera.forward(0.1);
                 if(e.getKeyCode() == KeyEvent.VK_S)
                     camera = camera.backward(0.1);
+                if(e.getKeyCode() == KeyEvent.VK_SPACE && !e.isShiftDown())
+                    camera = camera.up(0.1);
+                if(e.getKeyCode() == KeyEvent.VK_CONTROL && !e.isShiftDown())
+                    camera = camera.down(0.1);
 
 
                 // Change projection matrix
@@ -127,14 +132,14 @@ public class Canvas3D {
                 }
 
                 // Translate on z-axis
-                if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+                if(e.getKeyCode() == KeyEvent.VK_SPACE && e.isShiftDown()) {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Transl(0, 0, transl)));
                     } else {
                         pyramid.setModel(pyramid.getModel().mul(new Mat4Transl(0, 0, transl)));
                     }
                 }
-                if(e.getKeyCode() == KeyEvent.VK_CONTROL) {
+                if(e.getKeyCode() == KeyEvent.VK_CONTROL && e.isShiftDown()) {
                     if (cubeMode) {
                         cube.setModel(cube.getModel().mul(new Mat4Transl(0, 0, -transl)));
                     } else {
@@ -149,13 +154,13 @@ public class Canvas3D {
                         if (cubeMode) {
                             cube.setModel(cube.getModel().mul(new Mat4RotZ(Math.PI / 6)));
                         } else {
-                            pyramid.setModel(cube.getModel().mul(new Mat4RotZ(Math.PI / 6)));
+                            pyramid.setModel(pyramid.getModel().mul(new Mat4RotZ(Math.PI / 6)));
                         }
                     } else {
                         if (cubeMode) {
                             cube.setModel(cube.getModel().mul(new Mat4RotZ(-Math.PI / 6)));
                         } else {
-                            pyramid.setModel(cube.getModel().mul(new Mat4RotZ(-Math.PI / 6)));
+                            pyramid.setModel(pyramid.getModel().mul(new Mat4RotZ(-Math.PI / 6)));
                         }
                     }
                 }
@@ -166,13 +171,13 @@ public class Canvas3D {
                         if (cubeMode) {
                             cube.setModel(cube.getModel().mul(new Mat4RotX(Math.PI / 6)));
                         } else {
-                            pyramid.setModel(cube.getModel().mul(new Mat4RotX(Math.PI / 6)));
+                            pyramid.setModel(pyramid.getModel().mul(new Mat4RotX(Math.PI / 6)));
                         }
                     } else {
                         if (cubeMode) {
                             cube.setModel(cube.getModel().mul(new Mat4RotX(-Math.PI / 6)));
                         } else {
-                            pyramid.setModel(cube.getModel().mul(new Mat4RotX(-Math.PI / 6)));
+                            pyramid.setModel(pyramid.getModel().mul(new Mat4RotX(-Math.PI / 6)));
                         }
                     }
                 }
@@ -183,13 +188,13 @@ public class Canvas3D {
                         if (cubeMode) {
                             cube.setModel(cube.getModel().mul(new Mat4RotY(Math.PI / 6)));
                         } else {
-                            pyramid.setModel(cube.getModel().mul(new Mat4RotY(Math.PI / 6)));
+                            pyramid.setModel(pyramid.getModel().mul(new Mat4RotY(Math.PI / 6)));
                         }
                     } else {
                         if (cubeMode) {
                             cube.setModel(cube.getModel().mul(new Mat4RotY(-Math.PI / 6)));
                         } else {
-                            pyramid.setModel(cube.getModel().mul(new Mat4RotY(-Math.PI / 6)));
+                            pyramid.setModel(pyramid.getModel().mul(new Mat4RotY(-Math.PI / 6)));
                         }
                     }
                 }
@@ -200,13 +205,38 @@ public class Canvas3D {
                 renderScene();
             }
         });
+
+        panel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                x = e.getX();
+                y = e.getY();
+            }
+        });
+
+        panel.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int x2 = e.getX(), y2 = e.getY();
+
+                final double dx = x - x2;
+                final double dy = y - y2;
+
+                x = x2;
+                y = y2;
+
+                camera = camera.addAzimuth(dx / panel.getWidth()).addZenith(dy / panel.getHeight());
+
+                renderScene();
+            }
+        });
     }
 
     public void initScene() {
         camera = new Camera(
-                new Vec3D(0.5,-2,0.5),
-                Math.toRadians(90),
-                Math.toRadians(0),
+                new Vec3D(-2,1,1),
+                Math.toRadians(-15),
+                Math.toRadians(-15),
                 1. ,
                 true
         );
