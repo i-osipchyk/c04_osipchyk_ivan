@@ -201,9 +201,11 @@ public class Canvas3D {
                     }
                 }
 
+                // Change the solid
                 if(e.getKeyCode() == 'm' || e.getKeyCode() == 'M') {
                     cubeMode = !cubeMode;
                 }
+
                 renderScene();
             }
         });
@@ -211,6 +213,7 @@ public class Canvas3D {
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                // Set first set of coordinates
                 x = e.getX();
                 y = e.getY();
             }
@@ -219,14 +222,18 @@ public class Canvas3D {
         panel.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
+                // Set second set of coordinates
                 int x2 = e.getX(), y2 = e.getY();
 
+                // Calculate the difference
                 final double dx = x - x2;
                 final double dy = y - y2;
 
+                // Reset first set of coordinates
                 x = x2;
                 y = y2;
 
+                // Change the angle of the camera relatively to panel size
                 camera = camera.addAzimuth(dx / panel.getWidth()).addZenith(dy / panel.getHeight());
 
                 renderScene();
@@ -263,10 +270,12 @@ public class Canvas3D {
         wiredRenderer.setProj(projection);
         wiredRenderer.renderScene(lineX, lineY, lineZ, cube, pyramid);
 
+        // Render each line in array of cos lines
         for (Solid line: cos) {
             wiredRenderer.renderScene(line);
         }
 
+        // Render each line in array of sin lines
         for (Solid line: sin) {
             wiredRenderer.renderScene(line);
         }
@@ -277,11 +286,13 @@ public class Canvas3D {
     public ArrayList<Solid> createCosFunction() {
         ArrayList<Solid> graph = new ArrayList<>();
         for (int i = 0; i <= 10000; i++) {
+            // Set values of current and next x and y
             double x = i / 100.0;
             double y = Math.cos(x);
             double xNext = (i+1) / 100.0;
             double yNext = Math.cos(xNext);
 
+            // Add the line between 2 near points
             Line line = new Line(Color.CYAN, new Point3D(x, y, 0), new Point3D(xNext, yNext, 0));
             graph.add(line);
         }
@@ -291,11 +302,13 @@ public class Canvas3D {
     public ArrayList<Solid> createSinFunction() {
         ArrayList<Solid> graph = new ArrayList<>();
         for (int i = 0; i <= 10000; i++) {
+            // Set values of current and next x and y
             double x = i / 100.0;
             double y = Math.sin(x);
             double xNext = (i+1) / 100.0;
             double yNext = Math.sin(xNext);
 
+            // Add the line between 2 near points
             Line line = new Line(Color.CYAN, new Point3D(x, y, 0), new Point3D(xNext, yNext, 0));
             graph.add(line);
         }
