@@ -11,6 +11,7 @@ import transforms.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Canvas3D {
     private JPanel panel;
@@ -18,6 +19,7 @@ public class Canvas3D {
     private LineRasterizer lineRasterizer;
     private WiredRenderer wiredRenderer;
     private Solid pyramid, cube, lineX, lineY, lineZ;
+    private ArrayList<Solid> sin, cos;
     private Camera camera;
     private Mat4 projection;
     private double transl = 0.1;
@@ -249,6 +251,9 @@ public class Canvas3D {
 
         cube = new Cube();
         pyramid = new Pyramid();
+
+        cos = createCosFunction();
+        sin = createSinFunction();
     }
 
     public void renderScene() {
@@ -258,7 +263,43 @@ public class Canvas3D {
         wiredRenderer.setProj(projection);
         wiredRenderer.renderScene(lineX, lineY, lineZ, cube, pyramid);
 
+        for (Solid line: cos) {
+            wiredRenderer.renderScene(line);
+        }
+
+        for (Solid line: sin) {
+            wiredRenderer.renderScene(line);
+        }
+
         panel.repaint();
+    }
+
+    public ArrayList<Solid> createCosFunction() {
+        ArrayList<Solid> graph = new ArrayList<>();
+        for (int i = 0; i <= 10000; i++) {
+            double x = i / 100.0;
+            double y = Math.cos(x);
+            double xNext = (i+1) / 100.0;
+            double yNext = Math.cos(xNext);
+
+            Line line = new Line(Color.CYAN, new Point3D(x, y, 0), new Point3D(xNext, yNext, 0));
+            graph.add(line);
+        }
+        return graph;
+    }
+
+    public ArrayList<Solid> createSinFunction() {
+        ArrayList<Solid> graph = new ArrayList<>();
+        for (int i = 0; i <= 10000; i++) {
+            double x = i / 100.0;
+            double y = Math.sin(x);
+            double xNext = (i+1) / 100.0;
+            double yNext = Math.sin(xNext);
+
+            Line line = new Line(Color.CYAN, new Point3D(x, y, 0), new Point3D(xNext, yNext, 0));
+            graph.add(line);
+        }
+        return graph;
     }
 
     public void clear(int color) {
