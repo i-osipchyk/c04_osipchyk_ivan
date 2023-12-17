@@ -254,8 +254,8 @@ public class Canvas3D {
             );
         } else {
             projection = new Mat4OrthoRH(
-                    800,
-                    600,
+                    800 / 200,
+                    600 / 200,
                     0.1,
                     20
             );
